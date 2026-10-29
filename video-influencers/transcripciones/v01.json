@@ -1,0 +1,261 @@
+[
+ {
+  "ini": 0.0,
+  "fin": 3.86,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    0.0,
+    1.44,
+    " Cabra"
+   ],
+   [
+    1.44,
+    3.86,
+    " Negra,"
+   ],
+   [
+    3.86,
+    3.86,
+    " cabranegramx,"
+   ],
+   [
+    3.86,
+    3.86,
+    " mandil,"
+   ],
+   [
+    3.86,
+    3.86,
+    " tabla,"
+   ],
+   [
+    3.86,
+    3.86,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 3.86,
+  "fin": 9.54,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    3.86,
+    3.86,
+    " Cabra"
+   ],
+   [
+    3.86,
+    3.86,
+    " Negra,"
+   ],
+   [
+    5.72,
+    5.72,
+    " cabranegramx,"
+   ],
+   [
+    5.72,
+    5.72,
+    " mandil,"
+   ],
+   [
+    6.62,
+    6.62,
+    " tabla,"
+   ],
+   [
+    9.54,
+    9.54,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 9.54,
+  "fin": 14.64,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    9.54,
+    9.88,
+    " Cabra"
+   ],
+   [
+    9.88,
+    14.28,
+    " Negra,"
+   ],
+   [
+    14.52,
+    14.52,
+    " cabranegramx,"
+   ],
+   [
+    14.64,
+    14.64,
+    " mandil,"
+   ],
+   [
+    14.64,
+    14.64,
+    " tabla,"
+   ],
+   [
+    14.64,
+    14.64,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 14.64,
+  "fin": 18.58,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    14.64,
+    14.64,
+    " Cabra"
+   ],
+   [
+    14.64,
+    14.64,
+    " Negra,"
+   ],
+   [
+    15.82,
+    15.82,
+    " cabranegramx,"
+   ],
+   [
+    16.2,
+    16.2,
+    " mandil,"
+   ],
+   [
+    16.96,
+    16.96,
+    " tabla,"
+   ],
+   [
+    18.58,
+    18.58,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 18.58,
+  "fin": 19.64,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    18.58,
+    18.58,
+    " Cabra"
+   ],
+   [
+    18.58,
+    18.58,
+    " Negra,"
+   ],
+   [
+    18.58,
+    18.58,
+    " cabranegramx,"
+   ],
+   [
+    18.58,
+    18.58,
+    " mandil,"
+   ],
+   [
+    18.58,
+    18.58,
+    " tabla,"
+   ],
+   [
+    19.64,
+    19.64,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 19.64,
+  "fin": 19.68,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    19.64,
+    19.64,
+    " Cabra"
+   ],
+   [
+    19.64,
+    19.64,
+    " Negra,"
+   ],
+   [
+    19.64,
+    19.64,
+    " cabranegramx,"
+   ],
+   [
+    19.64,
+    19.64,
+    " mandil,"
+   ],
+   [
+    19.68,
+    19.68,
+    " tabla,"
+   ],
+   [
+    19.68,
+    19.68,
+    " parrilla"
+   ]
+  ]
+ },
+ {
+  "ini": 19.68,
+  "fin": 19.98,
+  "texto": " Cabra Negra, cabranegramx, mandil, tabla, parrilla",
+  "palabras": [
+   [
+    19.68,
+    19.68,
+    " Cabra"
+   ],
+   [
+    19.68,
+    19.68,
+    " Negra,"
+   ],
+   [
+    19.68,
+    19.68,
+    " cabranegramx,"
+   ],
+   [
+    19.68,
+    19.68,
+    " mandil,"
+   ],
+   [
+    19.98,
+    19.98,
+    " tabla,"
+   ],
+   [
+    19.98,
+    19.98,
+    " parrilla"
+   ]
+  ]
+ }
+]

@@ -1,0 +1,265 @@
+[
+ {
+  "ini": 0.0,
+  "fin": 0.52,
+  "texto": " Hola, ¿cómo están?",
+  "palabras": [
+   [
+    0.0,
+    0.12,
+    " Hola,"
+   ],
+   [
+    0.2,
+    0.26,
+    " ¿cómo"
+   ],
+   [
+    0.26,
+    0.52,
+    " están?"
+   ]
+  ]
+ },
+ {
+  "ini": 0.94,
+  "fin": 5.44,
+  "texto": " Solamente para agradecer a Cabra Negra por estos mandilitos que nos hicieron, ya es tres años",
+  "palabras": [
+   [
+    0.94,
+    1.26,
+    " Solamente"
+   ],
+   [
+    1.26,
+    1.5,
+    " para"
+   ],
+   [
+    1.5,
+    1.86,
+    " agradecer"
+   ],
+   [
+    1.86,
+    1.94,
+    " a"
+   ],
+   [
+    1.94,
+    2.2,
+    " Cabra"
+   ],
+   [
+    2.2,
+    2.56,
+    " Negra"
+   ],
+   [
+    2.56,
+    3.06,
+    " por"
+   ],
+   [
+    3.06,
+    3.22,
+    " estos"
+   ],
+   [
+    3.22,
+    3.8,
+    " mandilitos"
+   ],
+   [
+    3.8,
+    3.9,
+    " que"
+   ],
+   [
+    3.9,
+    4.04,
+    " nos"
+   ],
+   [
+    4.04,
+    4.54,
+    " hicieron,"
+   ],
+   [
+    4.6,
+    4.72,
+    " ya"
+   ],
+   [
+    4.72,
+    4.9,
+    " es"
+   ],
+   [
+    4.9,
+    5.1,
+    " tres"
+   ],
+   [
+    5.1,
+    5.44,
+    " años"
+   ]
+  ]
+ },
+ {
+  "ini": 5.44,
+  "fin": 10.48,
+  "texto": " haciendo los mandiles para Grillmaster, gracias a Cabranega por confiar en food dealers y por",
+  "palabras": [
+   [
+    5.44,
+    5.72,
+    " haciendo"
+   ],
+   [
+    5.72,
+    5.9,
+    " los"
+   ],
+   [
+    5.9,
+    6.2,
+    " mandiles"
+   ],
+   [
+    6.2,
+    6.46,
+    " para"
+   ],
+   [
+    6.46,
+    7.0,
+    " Grillmaster,"
+   ],
+   [
+    7.38,
+    7.8,
+    " gracias"
+   ],
+   [
+    7.8,
+    8.0,
+    " a"
+   ],
+   [
+    8.0,
+    8.36,
+    " Cabranega"
+   ],
+   [
+    8.36,
+    8.56,
+    " por"
+   ],
+   [
+    8.56,
+    9.08,
+    " confiar"
+   ],
+   [
+    9.08,
+    9.2,
+    " en"
+   ],
+   [
+    9.2,
+    9.42,
+    " food"
+   ],
+   [
+    9.42,
+    9.76,
+    " dealers"
+   ],
+   [
+    9.76,
+    10.34,
+    " y"
+   ],
+   [
+    10.34,
+    10.48,
+    " por"
+   ]
+  ]
+ },
+ {
+  "ini": 10.48,
+  "fin": 14.86,
+  "texto": " vestirnos en este Grillmaster 2025, así es que si buscas un mandil de",
+  "palabras": [
+   [
+    10.48,
+    10.98,
+    " vestirnos"
+   ],
+   [
+    10.98,
+    11.24,
+    " en"
+   ],
+   [
+    11.24,
+    11.44,
+    " este"
+   ],
+   [
+    11.44,
+    11.92,
+    " Grillmaster"
+   ],
+   [
+    11.92,
+    12.78,
+    " 2025,"
+   ],
+   [
+    13.28,
+    13.38,
+    " así"
+   ],
+   [
+    13.38,
+    13.5,
+    " es"
+   ],
+   [
+    13.5,
+    13.58,
+    " que"
+   ],
+   [
+    13.58,
+    13.68,
+    " si"
+   ],
+   [
+    13.68,
+    13.92,
+    " buscas"
+   ],
+   [
+    13.92,
+    14.08,
+    " un"
+   ],
+   [
+    14.08,
+    14.68,
+    " mandil"
+   ],
+   [
+    14.68,
+    14.86,
+    " de"
+   ]
+  ]
+ }
+]

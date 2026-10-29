@@ -1,0 +1,208 @@
+[
+ {
+  "ini": 0.0,
+  "fin": 5.82,
+  "texto": " Rupas de familia y mafia como en Sicilia, Versace siempre suenpilla, los haters lleno de envidia",
+  "palabras": [
+   [
+    0.0,
+    0.64,
+    " Rupas"
+   ],
+   [
+    0.64,
+    0.76,
+    " de"
+   ],
+   [
+    0.76,
+    1.28,
+    " familia"
+   ],
+   [
+    1.28,
+    1.56,
+    " y"
+   ],
+   [
+    1.56,
+    1.78,
+    " mafia"
+   ],
+   [
+    1.78,
+    2.2,
+    " como"
+   ],
+   [
+    2.2,
+    2.34,
+    " en"
+   ],
+   [
+    2.34,
+    2.82,
+    " Sicilia,"
+   ],
+   [
+    2.9,
+    3.32,
+    " Versace"
+   ],
+   [
+    3.32,
+    3.7,
+    " siempre"
+   ],
+   [
+    3.7,
+    4.34,
+    " suenpilla,"
+   ],
+   [
+    4.36,
+    4.54,
+    " los"
+   ],
+   [
+    4.54,
+    4.8,
+    " haters"
+   ],
+   [
+    4.8,
+    5.2,
+    " lleno"
+   ],
+   [
+    5.2,
+    5.32,
+    " de"
+   ],
+   [
+    5.32,
+    5.82,
+    " envidia"
+   ]
+  ]
+ },
+ {
+  "ini": 5.82,
+  "fin": 8.78,
+  "texto": " No creen eso de la pibla con botas y cocaína",
+  "palabras": [
+   [
+    5.82,
+    6.0,
+    " No"
+   ],
+   [
+    6.0,
+    6.28,
+    " creen"
+   ],
+   [
+    6.28,
+    6.5,
+    " eso"
+   ],
+   [
+    6.5,
+    6.72,
+    " de"
+   ],
+   [
+    6.72,
+    6.9,
+    " la"
+   ],
+   [
+    6.9,
+    7.32,
+    " pibla"
+   ],
+   [
+    7.32,
+    7.5,
+    " con"
+   ],
+   [
+    7.5,
+    7.88,
+    " botas"
+   ],
+   [
+    7.88,
+    8.06,
+    " y"
+   ],
+   [
+    8.06,
+    8.78,
+    " cocaína"
+   ]
+  ]
+ },
+ {
+  "ini": 11.0,
+  "fin": 14.68,
+  "texto": " Me gusta andar por la sierra creciente en los más torrades",
+  "palabras": [
+   [
+    11.0,
+    11.56,
+    " Me"
+   ],
+   [
+    11.56,
+    12.1,
+    " gusta"
+   ],
+   [
+    12.1,
+    12.4,
+    " andar"
+   ],
+   [
+    12.4,
+    12.64,
+    " por"
+   ],
+   [
+    12.64,
+    12.8,
+    " la"
+   ],
+   [
+    12.8,
+    13.14,
+    " sierra"
+   ],
+   [
+    13.14,
+    13.68,
+    " creciente"
+   ],
+   [
+    13.68,
+    13.82,
+    " en"
+   ],
+   [
+    13.82,
+    13.94,
+    " los"
+   ],
+   [
+    13.94,
+    14.16,
+    " más"
+   ],
+   [
+    14.16,
+    14.68,
+    " torrades"
+   ]
+  ]
+ }
+]

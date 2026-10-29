@@ -1,0 +1,348 @@
+[
+ {
+  "ini": 0.0,
+  "fin": 2.52,
+  "texto": " Vamos llegando a la Two One Two Mansion de Carolina Herrera",
+  "palabras": [
+   [
+    0.0,
+    0.12,
+    " Vamos"
+   ],
+   [
+    0.12,
+    0.36,
+    " llegando"
+   ],
+   [
+    0.36,
+    0.46,
+    " a"
+   ],
+   [
+    0.46,
+    0.5,
+    " la"
+   ],
+   [
+    0.5,
+    0.78,
+    " Two"
+   ],
+   [
+    0.78,
+    0.9,
+    " One"
+   ],
+   [
+    0.9,
+    1.04,
+    " Two"
+   ],
+   [
+    1.04,
+    1.38,
+    " Mansion"
+   ],
+   [
+    1.38,
+    1.66,
+    " de"
+   ],
+   [
+    1.66,
+    2.04,
+    " Carolina"
+   ],
+   [
+    2.04,
+    2.52,
+    " Herrera"
+   ]
+  ]
+ },
+ {
+  "ini": 2.52,
+  "fin": 4.12,
+  "texto": " Va a haber distintas experiencias por aquí",
+  "palabras": [
+   [
+    2.52,
+    2.96,
+    " Va"
+   ],
+   [
+    2.96,
+    3.04,
+    " a"
+   ],
+   [
+    3.04,
+    3.04,
+    " haber"
+   ],
+   [
+    3.04,
+    3.38,
+    " distintas"
+   ],
+   [
+    3.38,
+    3.78,
+    " experiencias"
+   ],
+   [
+    3.78,
+    3.94,
+    " por"
+   ],
+   [
+    3.94,
+    4.12,
+    " aquí"
+   ]
+  ]
+ },
+ {
+  "ini": 4.12,
+  "fin": 5.22,
+  "texto": " Yo voy a ver una masterclass",
+  "palabras": [
+   [
+    4.12,
+    4.22,
+    " Yo"
+   ],
+   [
+    4.22,
+    4.32,
+    " voy"
+   ],
+   [
+    4.32,
+    4.42,
+    " a"
+   ],
+   [
+    4.42,
+    4.5,
+    " ver"
+   ],
+   [
+    4.5,
+    4.66,
+    " una"
+   ],
+   [
+    4.66,
+    5.22,
+    " masterclass"
+   ]
+  ]
+ },
+ {
+  "ini": 5.22,
+  "fin": 6.56,
+  "texto": " Acompáñenme a ver como quedó todo",
+  "palabras": [
+   [
+    5.22,
+    5.86,
+    " Acompáñenme"
+   ],
+   [
+    5.86,
+    5.86,
+    " a"
+   ],
+   [
+    5.86,
+    5.96,
+    " ver"
+   ],
+   [
+    5.96,
+    6.12,
+    " como"
+   ],
+   [
+    6.12,
+    6.38,
+    " quedó"
+   ],
+   [
+    6.38,
+    6.56,
+    " todo"
+   ]
+  ]
+ },
+ {
+  "ini": 6.56,
+  "fin": 8.16,
+  "texto": " Porque está bastante bonita",
+  "palabras": [
+   [
+    6.56,
+    6.78,
+    " Porque"
+   ],
+   [
+    6.78,
+    7.0,
+    " está"
+   ],
+   [
+    7.0,
+    7.72,
+    " bastante"
+   ],
+   [
+    7.72,
+    8.16,
+    " bonita"
+   ]
+  ]
+ },
+ {
+  "ini": 8.16,
+  "fin": 11.3,
+  "texto": " Y aquí es donde la mayor parte de acción va a pasar",
+  "palabras": [
+   [
+    8.16,
+    8.38,
+    " Y"
+   ],
+   [
+    8.38,
+    8.5,
+    " aquí"
+   ],
+   [
+    8.5,
+    8.6,
+    " es"
+   ],
+   [
+    8.6,
+    8.72,
+    " donde"
+   ],
+   [
+    8.72,
+    8.9,
+    " la"
+   ],
+   [
+    8.9,
+    9.16,
+    " mayor"
+   ],
+   [
+    9.16,
+    9.52,
+    " parte"
+   ],
+   [
+    9.52,
+    9.76,
+    " de"
+   ],
+   [
+    9.76,
+    10.64,
+    " acción"
+   ],
+   [
+    10.64,
+    10.94,
+    " va"
+   ],
+   [
+    10.94,
+    11.02,
+    " a"
+   ],
+   [
+    11.02,
+    11.3,
+    " pasar"
+   ]
+  ]
+ },
+ {
+  "ini": 11.3,
+  "fin": 14.02,
+  "texto": " Tenemos esta maquinota para cortar el New York",
+  "palabras": [
+   [
+    11.3,
+    11.62,
+    " Tenemos"
+   ],
+   [
+    11.62,
+    11.96,
+    " esta"
+   ],
+   [
+    11.96,
+    12.64,
+    " maquinota"
+   ],
+   [
+    12.64,
+    12.84,
+    " para"
+   ],
+   [
+    12.84,
+    13.16,
+    " cortar"
+   ],
+   [
+    13.16,
+    13.52,
+    " el"
+   ],
+   [
+    13.52,
+    13.72,
+    " New"
+   ],
+   [
+    13.72,
+    14.02,
+    " York"
+   ]
+  ]
+ },
+ {
+  "ini": 14.02,
+  "fin": 14.9,
+  "texto": " Y también el mocaje",
+  "palabras": [
+   [
+    14.02,
+    14.2,
+    " Y"
+   ],
+   [
+    14.2,
+    14.44,
+    " también"
+   ],
+   [
+    14.44,
+    14.58,
+    " el"
+   ],
+   [
+    14.58,
+    14.9,
+    " mocaje"
+   ]
+  ]
+ }
+]

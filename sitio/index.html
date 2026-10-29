@@ -1,0 +1,981 @@
+<title>Cabra Negra</title>
+<meta name="description" content="Tablas, grillbox, piezas de hierro, piel y mandiles en madera real con grabado láser. Envíos a todo México.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Outfit:wght@300..800&family=Caveat:wght@500;600&display=swap">
+<style>
+:root{
+  /* ---- muestreados del Catálogo 2026 oficial ---- */
+  --carbon:#0C1013;
+  --brasa:#C8792F;
+  --ascua:#F89C3C;
+  --humo:#1A2026;
+  --acero:#29353C;
+  --hueso:#F2EDE6;
+  --ceniza:#949BA2;
+  --linea:rgba(242,237,230,.14);
+
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --texto:"Outfit","Avenir Next",system-ui,sans-serif;
+  --mano:"Caveat","Segoe Script",cursive;
+
+  /* variables del motor de scroll */
+  --mx-px:0px; --mx-t:0px;
+  --veta-y:0px; --veta-scale:1.05; --fondo-blur:0px; --fondo-brillo:1;
+  --velo-a:.34; --velo-b:.42; --velo-c:.72;
+  --titular-y:0px; --titular-scale:1; --titular-op:1;
+  --intro-y:0px; --intro-op:1;
+  --p1-op:0; --p1-y:calc(-50% + 58px);
+  --p2-op:0; --p2-y:calc(-50% + 58px);
+  --mu-x:420vw; --mu-vis:hidden; --mu-shift:0px; --mu-nav-op:0;
+
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--carbon);scroll-behavior:smooth}
+body{margin:0;background:var(--carbon);color:var(--hueso);
+  font-family:var(--texto);font-size:17px;line-height:1.55;font-weight:300;
+  overflow-x:clip;-webkit-font-smoothing:antialiased}
+button{border:0;font:inherit;color:inherit;background:none}
+a{color:inherit}
+img{max-width:100%}
+:where(a,button,input,select,textarea):focus-visible{
+  outline:2px solid var(--ascua);outline-offset:3px;border-radius:4px}
+
+.rotulo{font-family:var(--display);font-variation-settings:"wdth" 104,"wght" 650;
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;line-height:1;color:var(--brasa)}
+.mano{font-family:var(--mano);font-size:1.55rem;line-height:1.1;color:var(--ascua);font-weight:500}
+
+.saltar{position:absolute;left:-9999px;top:0;z-index:99;padding:12px 18px;background:var(--brasa);color:#0C1013}
+.saltar:focus{left:12px;top:12px}
+
+/* ---------------- barra ---------------- */
+.barra{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;
+  gap:28px;padding:16px clamp(16px,4vw,44px);pointer-events:none;
+  transition:background .3s ease,border-color .3s ease}
+.barra>*{pointer-events:auto}
+.barra.posado{background:rgba(12,16,19,.9);border-bottom:1px solid var(--linea);
+  backdrop-filter:blur(12px)}
+.marca{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.marca img{width:40px;height:40px;object-fit:contain;flex:none}
+.marca .nombre{font-family:var(--display);font-variation-settings:"wdth" 112,"wght" 750;
+  font-size:1rem;letter-spacing:.06em;line-height:1;white-space:nowrap;text-transform:uppercase}
+.barra nav{display:none;gap:clamp(16px,2vw,30px)}
+.barra nav a{text-decoration:none;font-size:.94rem;color:var(--hueso);opacity:.8}
+.barra nav a:hover{opacity:1;color:var(--ascua)}
+@media (min-width:980px){.barra nav{display:flex}}
+
+.wa{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;
+  border-radius:2px;background:var(--brasa);color:#0C1013;text-decoration:none;
+  font-family:var(--display);font-variation-settings:"wdth" 106,"wght" 700;
+  font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 10px 28px rgba(0,0,0,.45);transition:transform .18s ease,background .18s ease}
+.wa:hover{transform:translateY(-1px);background:var(--ascua)}
+.wa svg{width:16px;height:16px;flex:none}
+
+/* ---------------- cine ---------------- */
+.cine{position:relative;height:calc(100vh + 3600px)}
+.escena{position:sticky;top:0;height:100vh;min-height:620px;overflow:hidden;
+  isolation:isolate;background:var(--carbon)}
+.mundo{position:absolute;inset:0;overflow:hidden;background:var(--carbon)}
+
+.capa{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  user-select:none;-webkit-user-drag:none;pointer-events:none;
+  transform:translate3d(var(--mx-px),var(--veta-y),0) scale(var(--veta-scale));
+  transform-origin:50% 50%;
+  filter:blur(var(--fondo-blur)) brightness(var(--fondo-brillo));
+  will-change:transform,filter}
+.veta-canvas{z-index:0}
+.veta-video{z-index:1;opacity:0;transition:opacity 1s ease}
+.veta-video.lista{opacity:1}
+
+.velo{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(120% 68% at 50% 2%, rgba(12,16,19,.82) 0%, rgba(12,16,19,0) 60%),
+    linear-gradient(180deg,
+      rgba(12,16,19,var(--velo-a)) 0%,
+      rgba(12,16,19,var(--velo-b)) 44%,
+      rgba(12,16,19,var(--velo-c)) 100%)}
+.grano{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.14;
+  background-image:radial-gradient(rgba(255,255,255,.55) .5px,transparent .5px);
+  background-size:3px 3px;mix-blend-mode:overlay}
+
+/* rail diagonal naranja: el gesto del catalogo */
+.rail{position:absolute;z-index:4;top:0;bottom:0;left:clamp(14px,3.4vw,54px);width:3px;
+  background:linear-gradient(180deg,transparent,var(--brasa) 18%,var(--brasa) 78%,transparent);
+  opacity:.5;pointer-events:none}
+.rail::after{content:"";position:absolute;left:-1px;top:26%;width:5px;height:96px;
+  background:var(--ascua);box-shadow:0 0 22px 3px rgba(248,156,60,.5)}
+
+.titular{position:absolute;z-index:5;left:50%;top:clamp(92px,16vh,168px);
+  width:min(94vw,1500px);margin:0;text-align:center;
+  transform:translate3d(calc(-50% + var(--mx-t)),var(--titular-y),0) scale(var(--titular-scale));
+  opacity:var(--titular-op);will-change:transform,opacity}
+.titular img{width:min(460px,64vw);height:auto;
+  filter:drop-shadow(0 18px 44px rgba(0,0,0,.7))}
+.titular .lema{display:block;margin-top:.55em;font-family:var(--mano);
+  font-size:clamp(1.3rem,3.2vw,2.5rem);color:var(--ascua);line-height:1.1}
+
+.intro{position:absolute;z-index:6;left:50%;bottom:clamp(48px,12vh,140px);
+  width:min(660px,calc(100vw - 34px));text-align:center;
+  transform:translate3d(-50%,var(--intro-y),0);opacity:var(--intro-op);
+  will-change:transform,opacity}
+.intro p{margin:0 auto;max-width:48ch;font-size:clamp(1rem,1.4vw,1.14rem);
+  line-height:1.5;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.etiquetas{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:22px}
+.etiquetas span{display:inline-flex;align-items:center;min-height:38px;padding:0 17px;
+  border:1px solid rgba(242,237,230,.3);border-radius:2px;
+  background:rgba(12,16,19,.55);backdrop-filter:blur(6px);
+  font-family:var(--display);font-variation-settings:"wdth" 102,"wght" 600;
+  font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
+
+.panel{position:absolute;z-index:7;left:50%;width:min(780px,calc(100vw - 34px));
+  text-align:center;pointer-events:none;will-change:transform,opacity}
+.panel h2{margin:0;font-family:var(--display);
+  font-variation-settings:"wdth" 118,"wght" 800;
+  font-size:clamp(2rem,5.4vw,4.4rem);line-height:.95;letter-spacing:-.01em;
+  text-transform:uppercase;text-wrap:balance;text-shadow:0 16px 40px rgba(0,0,0,.6)}
+.panel h2 em{font-style:normal;color:var(--brasa)}
+.panel p{width:min(520px,100%);margin:20px auto 0;font-size:clamp(1rem,1.35vw,1.1rem);
+  line-height:1.5;text-shadow:0 2px 18px rgba(0,0,0,.7)}
+.panel-madera{top:58%;opacity:var(--p1-op);transform:translate3d(-50%,var(--p1-y),0)}
+.panel-grabado{top:30%;opacity:var(--p2-op);transform:translate3d(-50%,var(--p2-y),0)}
+.datos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,6vw,76px);
+  width:min(460px,100%);margin:clamp(30px,5vh,58px) auto 0}
+.datos dt{font-family:var(--display);font-variation-settings:"wdth" 110,"wght" 800;
+  font-size:clamp(2rem,4.6vw,3.9rem);line-height:.9;font-variant-numeric:tabular-nums;
+  color:var(--brasa);text-shadow:0 14px 34px rgba(0,0,0,.6)}
+.datos dd{margin:12px 0 0;font-size:.94rem;line-height:1.25;color:var(--hueso);opacity:.9}
+
+/* muestrario horizontal */
+.muestrario{position:absolute;z-index:8;left:0;right:0;top:clamp(104px,19vh,200px);
+  visibility:var(--mu-vis);
+  transform:translate3d(var(--mu-x),0,0);transform-origin:0 0;
+  pointer-events:auto;will-change:transform}
+.pista{display:flex;gap:clamp(12px,1.1vw,20px);align-items:stretch;
+  padding-left:clamp(16px,4vw,44px);
+  transform:translate3d(var(--mu-shift),0,0);
+  transition:transform 640ms cubic-bezier(.22,1,.36,1);will-change:transform}
+.pista.saltando{transition:none}
+.ficha{position:relative;flex:0 0 clamp(244px,20vw,318px);height:352px;padding:20px;
+  overflow:hidden;border-radius:3px;cursor:pointer;user-select:none;
+  background:var(--humo);color:var(--hueso);
+  border:1px solid rgba(242,237,230,.16);
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s ease}
+.ficha:hover,.ficha.activa{transform:translateY(-7px);border-color:var(--brasa)}
+.ficha .foto{position:absolute;inset:0;z-index:0;overflow:hidden}
+.ficha .foto img{width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.02);transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.ficha:hover .foto img,.ficha.activa .foto img{transform:scale(1.08)}
+.ficha .fondo{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(12,16,19,.1) 0%,rgba(12,16,19,.72) 46%,rgba(12,16,19,.96) 100%)}
+.ficha .kicker{position:relative;z-index:2;display:inline-block;
+  padding:5px 11px;border-radius:2px;background:var(--brasa);
+  font-family:var(--display);font-variation-settings:"wdth" 102,"wght" 700;
+  font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:#0C1013}
+.ficha h3{position:absolute;z-index:2;left:20px;right:20px;bottom:74px;margin:0;
+  font-family:var(--display);font-variation-settings:"wdth" 112,"wght" 750;
+  font-size:1.3rem;line-height:1;letter-spacing:-.005em;text-transform:uppercase}
+.ficha p{position:absolute;z-index:2;left:20px;right:20px;bottom:20px;margin:0;
+  font-size:.9rem;line-height:1.3;color:var(--ceniza)}
+.mu-nav{position:absolute;z-index:9;left:clamp(16px,4vw,44px);
+  top:calc(clamp(104px,19vh,200px) + 372px);display:flex;gap:11px;
+  opacity:var(--mu-nav-op);pointer-events:none;will-change:opacity}
+.mu-nav.lista{pointer-events:auto}
+.mu-nav button{width:48px;height:48px;display:inline-flex;align-items:center;
+  justify-content:center;border-radius:2px;background:var(--brasa);color:#0C1013;
+  cursor:pointer;font-size:1.1rem;box-shadow:0 16px 34px rgba(0,0,0,.5);
+  transition:background .18s ease,transform .18s ease}
+.mu-nav button:hover{background:var(--ascua);transform:translateY(-2px)}
+.pista-pie{position:absolute;z-index:9;left:clamp(16px,4vw,44px);
+  top:calc(clamp(104px,19vh,200px) + 372px);height:48px;display:flex;align-items:center;
+  padding-left:122px;opacity:var(--mu-nav-op)}
+
+/* ---------------- secciones ---------------- */
+.envoltura{width:min(1160px,calc(100vw - 34px));margin:0 auto}
+.seccion{padding:clamp(60px,9vh,116px) 0}
+.seccion-cabeza{max-width:62ch;margin:0 0 clamp(30px,5vh,54px)}
+.seccion-cabeza .rotulo{margin-bottom:14px;display:block}
+.seccion-cabeza h2{margin:0;font-family:var(--display);
+  font-variation-settings:"wdth" 116,"wght" 780;
+  font-size:clamp(1.85rem,4.2vw,3.1rem);line-height:1;letter-spacing:-.015em;
+  text-transform:uppercase;text-wrap:balance}
+.seccion-cabeza h2 em{font-style:normal;color:var(--brasa)}
+.seccion-cabeza .mano{margin-top:16px;display:block}
+.seccion-cabeza p{margin:16px 0 0;max-width:56ch;color:var(--ceniza);
+  font-size:1.05rem;line-height:1.55}
+
+/* chevron: el corte diagonal del catalogo */
+.chevron{border-top:1px solid var(--linea);position:relative}
+.chevron::before{content:"";position:absolute;left:0;top:-1px;width:min(320px,42%);height:3px;
+  background:var(--brasa)}
+
+/* lineas de producto */
+.lineas{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:680px){.lineas{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.lineas{grid-template-columns:repeat(3,1fr)}}
+.linea{display:flex;flex-direction:column;overflow:hidden;border-radius:3px;
+  background:var(--humo);border:1px solid var(--linea);
+  transition:border-color .3s ease,transform .3s ease}
+.linea:hover{border-color:rgba(200,121,47,.5);transform:translateY(-3px)}
+.linea-foto{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--acero)}
+.linea-foto img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.linea:hover .linea-foto img{transform:scale(1.05)}
+.linea-cuerpo{display:flex;flex-direction:column;gap:11px;padding:20px 22px 24px;flex:1}
+.linea h3{margin:0;font-family:var(--display);
+  font-variation-settings:"wdth" 112,"wght" 720;font-size:1.16rem;line-height:1.08;
+  letter-spacing:.01em;text-transform:uppercase}
+.linea .lema-linea{margin:0;font-family:var(--mano);font-size:1.25rem;color:var(--ascua);line-height:1.15}
+.linea ul{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.linea li{position:relative;padding-left:17px;color:var(--ceniza);font-size:.93rem;line-height:1.35}
+.linea li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:2px;background:var(--brasa)}
+
+/* clientes */
+.clientes{background:var(--humo);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.rejilla-clientes{display:grid;gap:1px;background:var(--linea);
+  border:1px solid var(--linea);border-radius:3px;overflow:hidden;
+  grid-template-columns:repeat(2,1fr)}
+@media (min-width:560px){.rejilla-clientes{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:860px){.rejilla-clientes{grid-template-columns:repeat(6,1fr)}}
+.cliente{background:var(--carbon);aspect-ratio:4/3;display:flex;align-items:center;
+  justify-content:center;padding:16px;transition:background .25s ease}
+.cliente:hover{background:#12171B}
+.cliente img{max-width:100%;max-height:100%;object-fit:contain;
+  filter:grayscale(1) brightness(1.7) contrast(.85);opacity:.62;
+  transition:filter .3s ease,opacity .3s ease}
+.cliente:hover img{filter:none;opacity:1}
+.nota-clientes{margin:20px 0 0;color:var(--ceniza);font-size:.86rem}
+
+/* maderas */
+.maderas{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:720px){.maderas{grid-template-columns:repeat(4,1fr)}}
+.madera{padding:22px 20px 24px;border:1px solid var(--linea);border-radius:3px;
+  background:var(--humo);display:flex;flex-direction:column;gap:9px}
+.madera .veta{height:8px;border-radius:2px}
+.madera h3{margin:6px 0 0;font-family:var(--display);
+  font-variation-settings:"wdth" 110,"wght" 700;font-size:1.06rem;
+  text-transform:uppercase;letter-spacing:.02em}
+.madera p{margin:0;color:var(--ceniza);font-size:.92rem;line-height:1.4}
+
+/* galeria */
+.mosaico{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:760px){.mosaico{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1080px){.mosaico{grid-template-columns:repeat(4,1fr)}}
+.toma{position:relative;margin:0;overflow:hidden;border-radius:3px;
+  background:var(--humo);border:1px solid var(--linea)}
+.toma img{display:block;width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;
+  transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.toma:hover img{transform:scale(1.05)}
+.toma figcaption{position:absolute;inset:auto 0 0 0;padding:34px 15px 13px;
+  display:flex;flex-direction:column;gap:2px;
+  background:linear-gradient(180deg,transparent,rgba(12,16,19,.92) 60%)}
+.toma .que{font-family:var(--display);font-variation-settings:"wdth" 108,"wght" 700;
+  font-size:.95rem;line-height:1.1;text-transform:uppercase;letter-spacing:.02em}
+.toma .quien{font-size:.84rem;line-height:1.2;color:var(--ascua)}
+
+/* pedido */
+.pedido{background:var(--humo);border-top:1px solid var(--linea)}
+.pedido-rejilla{display:grid;gap:clamp(28px,5vw,60px);align-items:start}
+@media (min-width:900px){.pedido-rejilla{grid-template-columns:1fr 1.05fr}}
+.formulario{display:grid;gap:15px;padding:clamp(20px,3vw,30px);
+  background:var(--carbon);border:1px solid var(--linea);border-radius:3px}
+.campo{display:grid;gap:7px}
+.campo label{font-family:var(--display);
+  font-variation-settings:"wdth" 102,"wght" 650;font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brasa)}
+.campo input,.campo select,.campo textarea{width:100%;padding:12px 14px;
+  border:1px solid var(--linea);border-radius:2px;background:var(--humo);
+  color:var(--hueso);font-family:var(--texto);font-size:1rem;line-height:1.35;font-weight:300}
+.campo textarea{resize:vertical;min-height:88px}
+.campo input::placeholder,.campo textarea::placeholder{color:var(--ceniza);opacity:.7}
+.duo{display:grid;gap:15px}
+@media (min-width:560px){.duo{grid-template-columns:1fr 1fr}}
+.enviar{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:0 24px;border-radius:2px;background:var(--brasa);
+  color:#0C1013;font-family:var(--display);
+  font-variation-settings:"wdth" 106,"wght" 750;font-size:.92rem;cursor:pointer;
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:transform .18s ease,background .18s ease}
+.enviar:hover{transform:translateY(-1px);background:var(--ascua)}
+.nota{margin:0;color:var(--ceniza);font-size:.85rem;line-height:1.45}
+
+.contacto{display:grid;gap:18px;align-content:start}
+.contacto-fila{display:grid;gap:4px;padding-bottom:17px;border-bottom:1px solid var(--linea)}
+.contacto-fila:last-of-type{border-bottom:0}
+.contacto-fila .valor{font-size:1.1rem;line-height:1.35}
+.contacto-fila a.valor{text-decoration:none;border-bottom:1px solid rgba(200,121,47,.5)}
+.contacto-fila a.valor:hover{color:var(--ascua)}
+.hueco{display:inline-block;padding:2px 9px;border-radius:2px;
+  background:rgba(200,121,47,.18);color:var(--ascua);
+  font-family:var(--display);font-variation-settings:"wdth" 102,"wght" 650;
+  font-size:.9em;letter-spacing:.03em}
+.pagos{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px}
+.pagos span{padding:6px 13px;border:1px solid var(--linea);border-radius:2px;
+  font-size:.82rem;color:var(--ceniza)}
+
+/* pie */
+.pie{padding:40px 0;color:var(--ceniza);font-size:.89rem;border-top:1px solid var(--linea)}
+.pie-rejilla{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.pie a{text-decoration:none}
+.pie a:hover{color:var(--ascua)}
+.pie img{width:52px;height:52px;object-fit:contain}
+
+@media (max-width:700px){
+  .titular{top:13vh}
+  .panel-madera{top:54%}
+  .panel-grabado{top:25%}
+  .ficha{flex-basis:min(76vw,290px);height:330px}
+  .mu-nav,.pista-pie{top:calc(clamp(104px,19vh,200px) + 350px)}
+  .pista-pie{display:none}
+  .rail{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .capa,.titular,.intro,.panel,.pista,.muestrario,.ficha,.wa,.enviar,.linea,.toma img{transition:none}
+}
+</style>
+
+<a class="saltar" href="#productos">Ir al catálogo</a>
+
+<header class="barra" id="barra">
+  <a class="marca" href="#cine" aria-label="Cabra Negra, inicio">
+    <img src="assets/cabra-blanca.png" alt="" width="200" height="180">
+    <span class="nombre">Cabra Negra</span>
+  </a>
+  <nav aria-label="Menú principal">
+    <a href="#productos">Catálogo</a>
+    <a href="#maderas">Maderas</a>
+    <a href="#grabado">Grabado</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#galeria">Galería</a>
+    <a href="#pedido">Pedido</a>
+  </nav>
+  <a class="wa" id="wa-barra" href="#pedido">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.2-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.7-.1 1.3Z"/></svg>
+    Haz tu pedido
+  </a>
+</header>
+
+<main>
+<section class="cine" id="cine" aria-label="Cabra Negra, presentación">
+  <div class="escena">
+    <div class="mundo">
+      <canvas class="capa veta-canvas" id="veta-canvas" aria-hidden="true"></canvas>
+      <video class="capa veta-video" id="veta-video" muted playsinline preload="auto"
+             disablepictureinpicture aria-hidden="true"></video>
+      <div class="velo"></div>
+      <div class="grano" aria-hidden="true"></div>
+      <div class="rail" aria-hidden="true"></div>
+
+      <h1 class="titular">
+        <img src="assets/logo-blanco.png" alt="Cabra Negra" width="1408" height="884">
+        <span class="lema">La parrilla comienza aquí.</span>
+      </h1>
+
+      <div class="intro" id="intro">
+        <p>Tablas, grillbox, piezas de hierro, piel y mandiles. Madera real, acabado
+          artesanal y tu logo grabado a láser. Piezas únicas, hechas para durar.</p>
+        <div class="etiquetas" aria-label="Lo que incluye cada pieza">
+          <span>Envíos a toda la república</span>
+          <span>Grabado personalizado</span>
+          <span>Piezas únicas</span>
+        </div>
+      </div>
+
+      <section class="panel panel-madera" aria-label="Madera real">
+        <h2>Madera real. <em>Nada de imitación.</em></h2>
+        <p>Parota, maple, tzalam y pino. Cada veta es distinta, así que no hay dos
+          piezas iguales — y esa es justo la idea.</p>
+        <dl class="datos">
+          <div>
+            <dt>10</dt>
+            <dd>líneas de producto en el catálogo 2026</dd>
+          </div>
+          <div>
+            <dt>18</dt>
+            <dd>marcas que ya sirven sobre nuestras piezas</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel panel-grabado" aria-label="Grabado láser">
+        <h2>Tu logo, <em>a fuego lento.</em></h2>
+        <p>Grabado láser sobre madera y piel. Mandas tu marca y sale en cada pieza
+          del servicio, igual en la tabla que en el mandil.</p>
+      </section>
+
+      <section class="muestrario" id="muestrario" aria-label="Líneas de producto">
+        <div class="pista" id="pista"></div>
+      </section>
+      <div class="pista-pie" aria-hidden="true"><span class="rotulo">Catálogo 2026</span></div>
+      <div class="mu-nav" id="mu-nav" aria-label="Controles del catálogo">
+        <button type="button" id="mu-prev" aria-label="Producto anterior">←</button>
+        <button type="button" id="mu-next" aria-label="Producto siguiente">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="productos">
+  <div class="envoltura">
+    <div class="seccion-cabeza">
+      <span class="rotulo">Catálogo 2026</span>
+      <h2>Diez líneas, <em>todas personalizables.</em></h2>
+      <p>Del porta vasos al grillbox completo. Todo sale del mismo taller, con la
+        misma madera y el mismo acabado.</p>
+    </div>
+    <div class="lineas" id="rejilla-productos"></div>
+  </div>
+</section>
+
+<section class="seccion chevron" id="maderas">
+  <div class="envoltura">
+    <div class="seccion-cabeza">
+      <span class="rotulo">La materia prima</span>
+      <h2>Cuatro maderas.</h2>
+      <span class="mano">La calidad comienza con la materia prima.</span>
+      <p>Cada una tiene su color, su dureza y su veta. Te decimos cuál le queda a
+        lo que estás buscando.</p>
+    </div>
+    <div class="maderas">
+      <article class="madera">
+        <span class="veta" style="background:linear-gradient(90deg,#8A5A32,#C08A55,#6E4425)" aria-hidden="true"></span>
+        <h3>Parota</h3>
+        <p>Veta ancha y contrastada, tonos chocolate. La más vistosa para tablas grandes.</p>
+      </article>
+      <article class="madera">
+        <span class="veta" style="background:linear-gradient(90deg,#D9BE92,#F0DCBB,#C9A87A)" aria-hidden="true"></span>
+        <h3>Maple</h3>
+        <p>Clara y cerrada. Contrasta con las oscuras y hace que el grabado resalte.</p>
+      </article>
+      <article class="madera">
+        <span class="veta" style="background:linear-gradient(90deg,#5E3A28,#8B5740,#43281C)" aria-hidden="true"></span>
+        <h3>Tzalam</h3>
+        <p>Oscura, densa y dura. Para piezas que van a aguantar servicio diario.</p>
+      </article>
+      <article class="madera">
+        <span class="veta" style="background:linear-gradient(90deg,#C9A574,#E4CCA3,#AD8752)" aria-hidden="true"></span>
+        <h3>Pino</h3>
+        <p>Ligera y noble. La opción de volumen cuando el pedido es grande.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="seccion chevron" id="grabado">
+  <div class="envoltura">
+    <div class="seccion-cabeza">
+      <span class="rotulo">Personalización</span>
+      <h2>Tu marca, en cada pieza <em>del servicio.</em></h2>
+      <p>Grabado láser sobre madera y piel. Sirve para una tabla de regalo y sirve
+        para equipar un restaurante completo con la misma imagen.</p>
+    </div>
+    <div class="mosaico">
+      <figure class="toma">
+        <img src="assets/img/tabla-corte.jpg" alt="Tablas de corte grabadas para Maxims" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Tabla de corte</span><span class="quien">Maxims</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/carpeta-roma.jpg" alt="Carpeta de piel grabada para La Roma" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Carpeta en piel</span><span class="quien">La Roma</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/tequilero-hex.jpg" alt="Tabla hexagonal grabada para Mazehual mezcal artesanal" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Tabla hexagonal</span><span class="quien">Mazehual</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/endgrain-robert.jpg" alt="Tabla end grain grabada para Robegrill" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Tabla end grain</span><span class="quien">Robegrill</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/portavasos.jpg" alt="Porta vasos de madera con logo grabado" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Porta vasos</span><span class="quien">Grabado a láser</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/rodaja-brass.jpg" alt="Rodaja de madera grabada para Brass Cancún" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Rodaja natural</span><span class="quien">Brass Cancún</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/grillbox-beastown.jpg" alt="Mobiliario y tablas para The Beastown Smokehouse" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Montaje completo</span><span class="quien">The Beastown</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/mandiles-equipo.jpg" alt="Equipo de restaurante con mandiles de piel personalizados" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Mandiles de piel</span><span class="quien">Equipo completo</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="seccion clientes" id="clientes">
+  <div class="envoltura">
+    <div class="seccion-cabeza">
+      <span class="rotulo">Algunos de nuestros clientes</span>
+      <h2>Ya están <em>sirviendo sobre madera.</em></h2>
+      <p>Parrillas, taquerías, cafés y boutiques de carne por todo México.</p>
+    </div>
+    <div class="rejilla-clientes" id="rejilla-clientes"></div>
+    <p class="nota-clientes">Marcas del catálogo 2026. Los logotipos son de sus respectivos dueños.</p>
+  </div>
+</section>
+
+<section class="seccion" id="galeria">
+  <div class="envoltura">
+    <div class="seccion-cabeza">
+      <span class="rotulo">Del taller a la mesa</span>
+      <h2>Así se ve <em>ya puesto.</em></h2>
+    </div>
+    <div class="mosaico">
+      <figure class="toma">
+        <img src="assets/img/mesa-servida.jpg" alt="Mesa de restaurante montada con tablas e individuales de piel" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Mesa montada</span><span class="quien">Servicio completo</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/cuchillos.jpg" alt="Set de cuchillos sobre tabla de madera" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Set de cuchillos</span><span class="quien">Con tabla</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/hierro-moldes.jpg" alt="Piezas de hierro para servicio con tabla de madera" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Piezas de hierro</span><span class="quien">Para presentación</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/piel-taller.jpg" alt="Productos en piel sobre mesa de taller" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Línea en piel</span><span class="quien">Taller</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/pizza-set.jpg" alt="Tablas redondas para pizza" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Tablas para pizza</span><span class="quien">Redondas</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/endgrain-oscura.jpg" alt="Tabla end grain en madera oscura" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">End grain</span><span class="quien">Madera oscura</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/mandil-pelo.jpg" alt="Mandil de piel con pelo de vaca y cuchillos" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Mandil en piel</span><span class="quien">Pelo natural</span></figcaption>
+      </figure>
+      <figure class="toma">
+        <img src="assets/img/endgrain-ajedrez.jpg" alt="Tabla end grain en mosaico de maderas" width="1050" height="1400" decoding="async" loading="lazy">
+        <figcaption><span class="que">Mosaico end grain</span><span class="quien">Maderas mezcladas</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="seccion pedido" id="pedido">
+  <div class="envoltura">
+    <div class="pedido-rejilla">
+      <div>
+        <div class="seccion-cabeza">
+          <span class="rotulo">Haz tu pedido</span>
+          <h2>Dinos qué necesitas.</h2>
+          <p>Llena lo que sepas. Con eso armamos tu mensaje y lo mandas por WhatsApp
+            en un toque; si traes tu logo o una referencia, adjúntalo ahí mismo.</p>
+        </div>
+        <div class="contacto">
+          <div class="contacto-fila">
+            <span class="rotulo">WhatsApp</span>
+            <span class="valor"><span class="hueco">[falta el número]</span></span>
+          </div>
+          <div class="contacto-fila">
+            <span class="rotulo">Correo</span>
+            <a class="valor" href="mailto:Cabranegra1984@gmail.com">Cabranegra1984@gmail.com</a>
+          </div>
+          <div class="contacto-fila">
+            <span class="rotulo">Instagram</span>
+            <a class="valor" href="https://www.instagram.com/cabranegramx/" target="_blank" rel="noopener">@cabranegramx</a>
+          </div>
+          <div class="contacto-fila">
+            <span class="rotulo">Taller</span>
+            <span class="valor"><span class="hueco">[falta la dirección]</span></span>
+          </div>
+          <div class="contacto-fila">
+            <span class="rotulo">Cobertura y pagos</span>
+            <div class="pagos">
+              <span>Envíos a todo México</span>
+              <span>Tarjeta de crédito</span>
+              <span>Tarjeta de débito</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="formulario" id="form-pedido" novalidate>
+        <div class="campo">
+          <label for="f-nombre">Tu nombre o tu marca</label>
+          <input id="f-nombre" name="nombre" type="text" autocomplete="name" placeholder="Cómo te presentamos">
+        </div>
+        <div class="duo">
+          <div class="campo">
+            <label for="f-producto">Producto</label>
+            <select id="f-producto" name="producto">
+              <option value="">Elige uno</option>
+              <option>Porta vasos de madera</option>
+              <option>Tablas de plato para corte</option>
+              <option>Tequileros</option>
+              <option>Tablas para pizza</option>
+              <option>Grillbox</option>
+              <option>Platos y cubiertos personalizados</option>
+              <option>Productos de hierro con tabla</option>
+              <option>Tablas variadas</option>
+              <option>Productos en piel</option>
+              <option>Delantales y medios mandiles</option>
+              <option>Todavía no sé, necesito asesoría</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="f-cantidad">Cantidad</label>
+            <input id="f-cantidad" name="cantidad" type="text" placeholder="Ej. 1 pieza, o 40 para el restaurante">
+          </div>
+        </div>
+        <div class="duo">
+          <div class="campo">
+            <label for="f-grabado">¿Lleva grabado?</label>
+            <select id="f-grabado" name="grabado">
+              <option value="">Elige una</option>
+              <option>Sí, con mi logotipo</option>
+              <option>Sí, con un nombre o texto</option>
+              <option>Sin grabado</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="f-envio">¿A dónde lo enviamos?</label>
+            <input id="f-envio" name="envio" type="text" placeholder="Ciudad y estado">
+          </div>
+        </div>
+        <div class="campo">
+          <label for="f-detalle">Cuéntanos del pedido</label>
+          <textarea id="f-detalle" name="detalle" placeholder="Medidas, madera que te late, para cuándo lo necesitas…"></textarea>
+        </div>
+        <button class="enviar" type="submit">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:18px;height:18px"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.2-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.7-.1 1.3Z"/></svg>
+          Mandar por WhatsApp
+        </button>
+        <p class="nota" id="nota-form">Se abre WhatsApp con el mensaje ya escrito. Tú lo revisas antes de enviarlo.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura pie-rejilla">
+    <span style="display:flex;align-items:center;gap:14px">
+      <img src="assets/cabra-blanca.png" alt="Cabra Negra" width="200" height="180">
+      La parrilla comienza aquí.
+    </span>
+    <span style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+      <a href="https://www.instagram.com/cabranegramx/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:Cabranegra1984@gmail.com">Correo</a>
+      <a href="#pedido">Haz tu pedido</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* Falta el número de WhatsApp de Cabra Negra. Al ponerlo aquí
+     (formato 52 + 10 dígitos, sin espacios) el formulario empieza a enviar. */
+  var WHATSAPP = "";
+
+  var PRODUCTOS = [
+    { kicker:"Detalle",   nombre:"Porta vasos",      img:"assets/img/portavasos.jpg",
+      lema:"Los pequeños detalles hacen la diferencia.",
+      puntos:["Madera natural","Personalización con grabado láser","Protege tus superficies","Ideal para regalos y eventos"] },
+    { kicker:"Corte",     nombre:"Tablas de plato",  img:"assets/img/tabla-corte.jpg",
+      lema:"Madera que acompaña cada corte.",
+      puntos:["Madera natural","Acabado artesanal","Grabado personalizado","Diferentes medidas disponibles"] },
+    { kicker:"Barra",     nombre:"Tequileros",       img:"assets/img/tequilero-ojo.jpg",
+      lema:"Brinda con estilo.",
+      puntos:["Fabricados en madera natural","Personalización disponible","Diferentes capacidades y diseños","Resistentes y duraderos"] },
+    { kicker:"Servicio",  nombre:"Tablas para pizza",img:"assets/img/pizza-redonda.jpg",
+      lema:"Para servir y cortar pizza.",
+      puntos:["Perfectas para servir y cortar","Madera resistente y duradera","Personalización disponible","Ideales para negocios gastronómicos"] },
+    { kicker:"Parrilla",  nombre:"Grillbox",         img:"assets/img/grillbox-beastown.jpg",
+      lema:"Más que una caja, una experiencia.",
+      puntos:["Madera natural","Acabado artesanal","Grabado personalizado","Diferentes configuraciones disponibles"] },
+    { kicker:"Mesa",      nombre:"Platos y cubiertos",img:"assets/img/cubiertos-set.jpg",
+      lema:"Presenta, sirve y sorprende.",
+      puntos:["Ideales para restaurantes","Personalización con logotipo o marca","Materiales de alta calidad","Acabados premium"] },
+    { kicker:"Hierro",    nombre:"Hierro con tabla", img:"assets/img/hierro-set.jpg",
+      lema:"Presentaciones que roban miradas.",
+      puntos:["Hierro de alta resistencia","Tabla de madera natural","Personalización disponible","Diseño artesanal y funcional"] },
+    { kicker:"Variedad",  nombre:"Tablas variadas",  img:"assets/img/variadas.jpg",
+      lema:"Refleja tu esencia.",
+      puntos:["Amplia variedad de diseños","Maderas naturales de alta calidad","Personalización disponible","Acabados artesanales"] },
+    { kicker:"Piel",      nombre:"Productos en piel",img:"assets/img/piel-pelo.jpg",
+      lema:"Diseñada para cada ocasión.",
+      puntos:["Elaborados en piel con acabados premium","Personalización con logotipo grabado láser","Ideales para restaurantes y bares","Diseño elegante, resistente y funcional"] },
+    { kicker:"Uniforme",  nombre:"Delantales y mandiles",img:"assets/img/mandiles-calle.jpg",
+      lema:"La calidad también se lleva puesta.",
+      puntos:["Disponibles en piel y gabardina premium","Personalización con grabado láser","Comodidad, resistencia y libertad de movimiento","Ideales para parrilleros, chefs y restaurantes"] }
+  ];
+
+  var CLIENTES = [
+    ["p12_01","Robegrill"],["p12_02","El Chuletón"],["p12_03","Sociedad Mexicana de Parrilleros"],
+    ["p12_04","Brass Cancún"],["p12_05","Las Alitas"],["p12_06","Barbacha Borracha"],
+    ["p12_07","The Beastown Smokehouse"],["p12_08","Merendero San Pancho"],["p12_09","El Fish Fritanga"],
+    ["p12_10","Ramos"],["p12_11","Elisa"],["p12_12","El Capi Taquería"],
+    ["p12_13","Lobo Grill"],["p12_14","Balam Garden"],["p12_15","U.S. Meat Export Federation"],
+    ["p12_16","Sonora's Meat"],["p12_17","Casa Leña"],["p12_18","GrillerVM"]
+  ];
+
+  var seccion = document.getElementById("cine");
+  var raiz    = document.documentElement;
+  var quieto  = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var pista   = document.getElementById("pista");
+  var muNav   = document.getElementById("mu-nav");
+  var barra   = document.getElementById("barra");
+  var video   = document.getElementById("veta-video");
+  var lienzo  = document.getElementById("veta-canvas");
+
+  var tmx = 0, tmy = 0, mx = 0, my = 0;
+  var scrollDestino = 0, scrollSuave = 0, iniciado = false, pendiente = false;
+  var fichas = [], originales = PRODUCTOS.length, activa = originales;
+  var videoListo = false;
+
+  function limita(v, min, max) {
+    min = min === undefined ? 0 : min; max = max === undefined ? 1 : max;
+    return Math.min(max, Math.max(min, v));
+  }
+  function suave(e0, e1, v) { var x = limita((v - e0) / (e1 - e0)); return x * x * (3 - 2 * x); }
+  function mezcla(a, b, t) { return a + (b - a) * t; }
+  function tramo(s, a, b, c, d) {
+    var entra = suave(a, b, s), sale = suave(c, d, s);
+    return { entra: entra, sale: sale, activo: entra * (1 - sale) };
+  }
+  function distancia() {
+    return limita(-seccion.getBoundingClientRect().top, 0,
+      seccion.offsetHeight - window.innerHeight);
+  }
+  function esc(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  /* ---------- veta procedural: se ve aunque el video no cargue ---------- */
+  function pintarVeta() {
+    var an = 900, al = 1600, ctx = lienzo.getContext("2d");
+    lienzo.width = an; lienzo.height = al;
+    var g = ctx.createLinearGradient(0, 0, 0, al);
+    g.addColorStop(0, "#3A2318"); g.addColorStop(.5, "#26170F"); g.addColorStop(1, "#140C08");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, an, al);
+    var semilla = 11;
+    function azar() { semilla = (semilla * 16807) % 2147483647; return semilla / 2147483647; }
+    for (var i = 0; i < 210; i++) {
+      var x = azar() * an, ancho = 1 + azar() * 6, claro = azar();
+      ctx.beginPath();
+      ctx.moveTo(x, -20);
+      for (var y = -20; y < al + 20; y += 15) {
+        var onda = Math.sin(y * .0038 + i) * 30 + Math.sin(y * .016 + i * 2.1) * 10;
+        ctx.lineTo(x + onda, y);
+      }
+      ctx.strokeStyle = claro > .70
+        ? "rgba(200,121,47," + (.04 + azar() * .13) + ")"
+        : "rgba(10,6,4," + (.06 + azar() * .18) + ")";
+      ctx.lineWidth = ancho;
+      ctx.stroke();
+    }
+    for (var k = 0; k < 6; k++) {
+      var nx = azar() * an, ny = azar() * al;
+      for (var r = 3; r < 52; r += 4) {
+        ctx.beginPath();
+        ctx.ellipse(nx, ny, r * .58, r, .28, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(122,66,26,.11)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  /* ---------- muestrario infinito ---------- */
+  function armaMuestrario() {
+    var html = "";
+    for (var s = 0; s < 3; s++) {
+      for (var i = 0; i < PRODUCTOS.length; i++) {
+        var p = PRODUCTOS[i];
+        html += '<article class="ficha" tabindex="0" role="button" data-i="' + (s * originales + i) +
+          '" aria-label="Ver ' + esc(p.nombre) + '">' +
+          '<span class="foto"><img src="' + p.img + '" alt="" width="620" height="620" loading="lazy" decoding="async"></span>' +
+          '<span class="fondo"></span>' +
+          '<span class="kicker">' + esc(p.kicker) + '</span>' +
+          '<h3>' + esc(p.nombre) + '</h3><p>' + esc(p.lema) + '</p></article>';
+      }
+    }
+    pista.innerHTML = html;
+    fichas = Array.prototype.slice.call(pista.querySelectorAll(".ficha"));
+    fichas.forEach(function (t) {
+      t.addEventListener("click", function () { elige(t); });
+      t.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); elige(t); }
+      });
+    });
+    pista.addEventListener("transitionend", normaliza);
+    actualizaMuestrario();
+  }
+  function actualizaMuestrario() {
+    if (!fichas.length) return;
+    var ancho = fichas[0].offsetWidth;
+    var hueco = parseFloat(getComputedStyle(pista).columnGap || "0") || 0;
+    raiz.style.setProperty("--mu-shift", (-(ancho + hueco) * activa) + "px");
+    fichas.forEach(function (t) { t.classList.toggle("activa", Number(t.dataset.i) === activa); });
+  }
+  function mueve(d) { activa += d; actualizaMuestrario(); }
+  function elige(t) { var n = Number(t.dataset.i); if (isFinite(n)) { activa = n; actualizaMuestrario(); } }
+  function salta(i) {
+    pista.classList.add("saltando"); activa = i; actualizaMuestrario();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { pista.classList.remove("saltando"); });
+    });
+  }
+  function normaliza() {
+    if (activa >= originales * 2) salta(activa - originales);
+    else if (activa < originales) salta(activa + originales);
+  }
+
+  /* ---------- motor ---------- */
+  var LARGO = 3600;
+  function mideLargo() { LARGO = Math.max(1, seccion.offsetHeight - window.innerHeight); }
+
+  function actualiza() {
+    pendiente = false;
+    scrollDestino = distancia();
+    if (!iniciado || quieto.matches) { scrollSuave = scrollDestino; iniciado = true; }
+    else { scrollSuave = mezcla(scrollSuave, scrollDestino, 0.14); }
+    if (Math.abs(scrollSuave - scrollDestino) < 0.08) scrollSuave = scrollDestino;
+
+    mx = mezcla(mx, tmx, 0.12);
+    my = mezcla(my, tmy, 0.12);
+    var pmx = quieto.matches ? 0 : mx;
+    var pmy = quieto.matches ? 0 : my;
+
+    var p       = limita(scrollSuave / LARGO);
+    var madera  = tramo(p, 0.13, 0.24, 0.38, 0.45);
+    var grabado = tramo(p, 0.48, 0.58, 0.70, 0.76);
+    var salida  = suave(0.03, 0.17, p);
+    var muEntra = Math.pow(suave(0.78, 0.92, p), 1.55);
+    var muNavOp = suave(0.88, 0.95, p);
+    var velo    = limita(madera.activo + grabado.activo);
+
+    raiz.style.setProperty("--veta-y", (p * -170 + pmy * -10).toFixed(2) + "px");
+    raiz.style.setProperty("--veta-scale", (1.05 + p * 0.14).toFixed(4));
+    raiz.style.setProperty("--mx-px", (pmx * -14).toFixed(2) + "px");
+    raiz.style.setProperty("--mx-t", (pmx * 16).toFixed(2) + "px");
+
+    raiz.style.setProperty("--fondo-blur", (velo * 12).toFixed(2) + "px");
+    raiz.style.setProperty("--fondo-brillo", (1 - velo * 0.32).toFixed(3));
+    raiz.style.setProperty("--velo-a", (0.34 + velo * 0.34).toFixed(3));
+    raiz.style.setProperty("--velo-b", (0.42 + velo * 0.30).toFixed(3));
+    raiz.style.setProperty("--velo-c", (0.72 + velo * 0.18).toFixed(3));
+
+    raiz.style.setProperty("--titular-y", (salida * -200).toFixed(2) + "px");
+    raiz.style.setProperty("--titular-scale", (1 - salida * 0.08).toFixed(4));
+    raiz.style.setProperty("--titular-op", (1 - salida).toFixed(4));
+    raiz.style.setProperty("--intro-y", (salida * 88).toFixed(2) + "px");
+    raiz.style.setProperty("--intro-op", (1 - salida).toFixed(4));
+
+    raiz.style.setProperty("--p1-op", (madera.activo * (1 - madera.sale)).toFixed(4));
+    raiz.style.setProperty("--p1-y",
+      "calc(-50% + " + (-madera.sale * 86 + (1 - madera.entra) * 58).toFixed(2) + "px)");
+    raiz.style.setProperty("--p2-op", (grabado.activo * (1 - grabado.sale)).toFixed(4));
+    raiz.style.setProperty("--p2-y",
+      "calc(-50% + " + (-grabado.sale * 86 + (1 - grabado.entra) * 58).toFixed(2) + "px)");
+
+    raiz.style.setProperty("--mu-x", ((1 - muEntra) * 420).toFixed(3) + "vw");
+    raiz.style.setProperty("--mu-vis", muEntra > 0.01 ? "visible" : "hidden");
+    raiz.style.setProperty("--mu-nav-op", muNavOp.toFixed(3));
+    muNav.classList.toggle("lista", muNavOp > 0.98);
+    barra.classList.toggle("posado", scrollDestino >= LARGO - 40);
+
+    /* el video se rebobina con el scroll */
+    if (videoListo && isFinite(video.duration) && !video.seeking) {
+      var t = p * Math.max(0, video.duration - 0.04);
+      if (Math.abs(video.currentTime - t) > 0.02) {
+        try { video.currentTime = t; } catch (e) {}
+      }
+    }
+
+    if (Math.abs(scrollSuave - scrollDestino) > 0.08 ||
+        Math.abs(mx - tmx) > 0.001 || Math.abs(my - tmy) > 0.001) pide();
+  }
+  function pide() { if (pendiente) return; pendiente = true; requestAnimationFrame(actualiza); }
+
+  /* ---------- video ---------- */
+  video.addEventListener("loadeddata", function () {
+    videoListo = true; video.pause(); video.classList.add("lista"); pide();
+  });
+  video.addEventListener("error", function () { videoListo = false; });
+  video.addEventListener("seeked", pide);
+  video.src = "assets/hero.mp4";
+  video.load();
+
+  /* ---------- rejilla de productos ---------- */
+  (function () {
+    var cont = document.getElementById("rejilla-productos");
+    if (!cont) return;
+    cont.innerHTML = PRODUCTOS.map(function (p) {
+      return '<article class="linea">' +
+        '<div class="linea-foto"><img src="' + p.img + '" alt="' + esc(p.nombre) +
+          '" width="1050" height="790" loading="lazy" decoding="async"></div>' +
+        '<div class="linea-cuerpo">' +
+          '<h3>' + esc(p.nombre) + '</h3>' +
+          '<p class="lema-linea">' + esc(p.lema) + '</p>' +
+          '<ul>' + p.puntos.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul>' +
+        '</div></article>';
+    }).join("");
+  })();
+
+  /* ---------- rejilla de clientes ---------- */
+  (function () {
+    var cont = document.getElementById("rejilla-clientes");
+    if (!cont) return;
+    cont.innerHTML = CLIENTES.map(function (c) {
+      return '<div class="cliente"><img src="assets/clientes/' + c[0] + '.jpg" alt="' +
+        esc(c[1]) + '" loading="lazy" decoding="async"></div>';
+    }).join("");
+  })();
+
+  /* ---------- formulario -> WhatsApp ---------- */
+  var form = document.getElementById("form-pedido");
+  var nota = document.getElementById("nota-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = new FormData(form);
+    var lineas = ["Hola, quiero hacer un pedido."];
+    if (d.get("nombre"))   lineas.push("Soy " + d.get("nombre") + ".");
+    if (d.get("producto")) lineas.push("Producto: " + d.get("producto"));
+    if (d.get("cantidad")) lineas.push("Cantidad: " + d.get("cantidad"));
+    if (d.get("grabado"))  lineas.push("Grabado: " + d.get("grabado"));
+    if (d.get("envio"))    lineas.push("Envío a: " + d.get("envio"));
+    if (d.get("detalle"))  lineas.push("Detalle: " + d.get("detalle"));
+    var texto = lineas.join("\n");
+
+    if (!WHATSAPP) {
+      nota.textContent = "Todavía falta cargar el número de WhatsApp en el código. " +
+        "Mientras tanto, copia esto y mándalo por Instagram: " + texto.replace(/\n/g, " · ");
+      nota.style.color = "var(--ascua)";
+      return;
+    }
+    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+  });
+
+  /* ---------- listeners ---------- */
+  window.addEventListener("scroll", pide, { passive: true });
+  window.addEventListener("resize", function () { mideLargo(); actualizaMuestrario(); pide(); });
+  window.addEventListener("pointermove", function (e) {
+    tmx = e.clientX / window.innerWidth - 0.5;
+    tmy = e.clientY / window.innerHeight - 0.5;
+    pide();
+  }, { passive: true });
+  document.getElementById("mu-prev").addEventListener("click", function () { mueve(-1); });
+  document.getElementById("mu-next").addEventListener("click", function () { mueve(1); });
+
+  mideLargo();
+  pintarVeta();
+  armaMuestrario();
+  pide();
+})();
+</script>
